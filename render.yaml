@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: skilllink-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "cd backend && pip install -r requirements.txt"
+    startCommand: "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        value: sqlite:///./skilllink.db
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: NOMINATIM_USER_AGENT
+        value: SkillLinkMicroEmployment/1.0 (contact@skilllink.local)
